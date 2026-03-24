@@ -38,6 +38,21 @@ export default function EmployeeProfile() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
+    const cleanPhone = formData.phone.replace(/\D/g, '');
+    const cleanAltPhone = formData.alternate_phone.replace(/\D/g, '');
+
+    if (cleanPhone.length !== 10) {
+      return showToast("Phone number must be exactly 10 digits", "error");
+    }
+    if (cleanAltPhone && cleanAltPhone.length !== 10) {
+      return showToast("Alternative phone must be exactly 10 digits", "error");
+    }
+    if (cleanAltPhone && cleanPhone === cleanAltPhone) {
+      return showToast("Alternative phone cannot be the same as primary phone", "error");
+    }
+
     setSaving(true);
     const res = await fetch("/api/employee/profile", {
       method: "POST",
@@ -130,20 +145,19 @@ export default function EmployeeProfile() {
                 type="select"
                 options={[
                   { label: "Bike", value: "bike" },
-                  { label: "Scooter", value: "scooter" },
-                  { label: "Car", value: "car" },
-                  { label: "None", value: "none" }
+                  { label: "Scooty", value: "scooty" },
+                  { label: "Car", value: "car" }
                 ]}
                 value={formData.vehicle_type || ''}
                 onChange={(v: string) => setFormData({...formData, vehicle_type: v})}
                 placeholder="Select Vehicle"
               />
               <FormInput 
-                label="Vehicle Detail" 
+                label="Vehicle Number" 
                 icon={<Info />}
                 value={formData.vehicle_note || ''}
                 onChange={(v: string) => setFormData({...formData, vehicle_note: v})}
-                placeholder="Brand / Model"
+                placeholder="Ex. GJ-01-XX-0000"
               />
               <div className="md:col-span-2 space-y-2">
                 <label className="text-xs font-bold text-slate-500 ml-1">Full Address</label>
