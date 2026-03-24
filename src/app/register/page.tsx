@@ -35,10 +35,14 @@ export default function RegisterPage() {
     });
 
     if (res.ok) {
-      showToast("Account created successfully!", "success");
-      setTimeout(() => {
-        router.push("/login?message=Account created successfully!");
-      }, 1500);
+  showToast("Account created successfully!", "success");
+
+  router.refresh(); // force data revalidation
+
+  setTimeout(() => {
+    router.push("/login?message=Account created successfully!");
+  }, 1500);
+    }
     } else {
       const data = await res.json();
       showToast(data.error || "Registration failed", "error");
