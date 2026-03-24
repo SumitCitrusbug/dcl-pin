@@ -10,14 +10,17 @@ export default function AdminDashboard() {
   const [employees, setEmployees] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("/api/users")
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) setEmployees(data);
-        setLoading(false);
-      });
-  }, []);
+  const loadUsers = async () => {
+  setLoading(true);
+  const res = await fetch("/api/users", { cache: "no-store" });
+  const data = await res.json();
+  if (Array.isArray(data)) setEmployees(data);
+  setLoading(false);
+};
+
+useEffect(() => {
+  loadUsers();
+}, []);
 
   const employeeList = employees.filter(u => u.role === 'employee');
   const lockedCount = employeeList.filter(e => e.is_locked).length;
