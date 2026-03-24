@@ -23,10 +23,16 @@ export default function AdminEmployees() {
   const [expandedMyTalukas, setExpandedMyTalukas] = useState<string[]>([]);
   const { showToast, ToastComponent } = useToast();
 
-  useEffect(() => {
-    fetch("/api/users").then(res => res.json()).then(setEmployees);
-    fetch("/api/districts").then(res => res.json()).then(setDistricts);
-  }, []);
+  const loadUsers = async () => {
+  const res = await fetch("/api/users", { cache: "no-store" });
+  const data = await res.json();
+  setEmployees(data);
+};
+
+useEffect(() => {
+  loadUsers();
+  fetch("/api/districts").then(res => res.json()).then(setDistricts);
+}, []);
 
   useEffect(() => {
     if (selectedEmp) {
