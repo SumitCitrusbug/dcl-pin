@@ -215,10 +215,14 @@ export default function EmployeeAssignments() {
                                       )}>
                                         {a.pincode[0]}
                                       </div>
-                                      <div className="overflow-hidden">
-                                         <p className={cn("font-bold text-xs", isSelected ? "text-rose-900" : "text-slate-900")}>{a.pincode}</p>
-                                         <p className="text-[9px] text-slate-400 truncate uppercase">{a.area}</p>
-                                      </div>
+                                       <div className="overflow-hidden">
+                                          <p className={cn("font-bold text-xs", isSelected ? "text-rose-900" : "text-slate-900")}>{a.pincode}</p>
+                                          <p className="text-[9px] text-slate-400 truncate uppercase font-bold">{a.area}</p>
+                                          <div className="flex items-center space-x-2 mt-1">
+                                            <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-bold uppercase tracking-tighter">{a.taluka}</span>
+                                            <span className="text-[8px] bg-indigo-50 px-1.5 py-0.5 rounded text-indigo-500 font-bold uppercase tracking-tighter">{a.district_name}</span>
+                                          </div>
+                                       </div>
                                     </div>
                                     <div className="flex items-center space-x-3">
                                       <div className={cn(
@@ -323,7 +327,10 @@ export default function EmployeeAssignments() {
                                           >
                                             <div className="overflow-hidden">
                                                <p className="text-sm font-bold truncate">{p.pincode}</p>
-                                               <p className="text-[9px] font-medium text-slate-400 truncate uppercase mt-0.5">{p.area}</p>
+                                               <p className="text-[9px] font-medium text-slate-400 truncate uppercase mt-0.5 font-bold">{p.area}</p>
+                                               <div className="flex items-center space-x-2 mt-1">
+                                                 <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-bold uppercase tracking-tighter">{p.taluka}</span>
+                                               </div>
                                             </div>
                                             {!isAssigned && (
                                               <div className={cn("w-5 h-5 rounded flex items-center justify-center border transition-all", isSelected ? "bg-indigo-600 border-indigo-600 text-white shadow-sm" : "border-slate-300")}>

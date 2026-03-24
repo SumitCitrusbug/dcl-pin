@@ -79,7 +79,10 @@ export default function EmployeeDashboard() {
               </div>
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Vehicle</p>
-                <p className="text-base font-bold text-slate-900 capitalize">{profile?.vehicle_type || 'None'}</p>
+                <div className="flex items-center space-x-2">
+                  <p className="text-base font-bold text-slate-900 capitalize">{profile?.vehicle_type || 'None'}</p>
+                  {profile?.vehicle_note && <span className="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-md font-bold uppercase">{profile.vehicle_note}</span>}
+                </div>
               </div>
               <div className="sm:col-span-2 p-4 rounded-xl bg-slate-50 border border-slate-100">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Address</p>

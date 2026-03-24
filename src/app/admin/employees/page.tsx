@@ -205,15 +205,35 @@ export default function AdminEmployees() {
               {/* Employee Context Cell */}
               <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                  <div className="flex items-center justify-between">
-                   <div>
-                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Selected Employee</p>
-                     <h2 className="text-xl font-bold text-slate-900">{selectedEmployeeData?.name || 'User'}</h2>
-                     <p className="text-slate-500 text-xs">{selectedEmployeeData?.email}</p>
-                   </div>
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Selected Employee</p>
+                      <h2 className="text-xl font-bold text-slate-900">{selectedEmployeeData?.name || selectedEmployeeData?.email || 'User'}</h2>
+                      <p className="text-slate-500 text-xs">{selectedEmployeeData?.email}</p>
+                    </div>
                    <div className="bg-indigo-50 px-4 py-2 rounded-xl text-indigo-700 font-bold text-xs border border-indigo-100">
                      {currentAssignments.length} Assignments
                    </div>
                  </div>
+
+                  {/* Profile Details Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-100">
+                    <div className="space-y-1">
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Contact Info</p>
+                      <p className="text-xs font-bold text-slate-700">{selectedEmployeeData?.phone || 'No Phone'}</p>
+                      {selectedEmployeeData?.alternate_phone && <p className="text-[10px] text-slate-400 font-medium">Alt: {selectedEmployeeData.alternate_phone}</p>}
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Logistics</p>
+                      <div className="flex items-center space-x-2">
+                        <p className="text-xs font-bold text-slate-700 capitalize">{selectedEmployeeData?.vehicle_type || 'No Vehicle'}</p>
+                        {selectedEmployeeData?.vehicle_note && <span className="text-[9px] bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded font-bold">{selectedEmployeeData.vehicle_note}</span>}
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Address</p>
+                      <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-h-12 overflow-y-auto">{selectedEmployeeData?.address || 'No address provided'}</p>
+                    </div>
+                  </div>
               </div>
 
               {/* Current Assignments */}
@@ -282,9 +302,13 @@ export default function AdminEmployees() {
                                           {a.pincode[0]}
                                         </div>
                                         <div className="overflow-hidden">
-                                           <p className="font-bold text-slate-900 text-xs truncate">{a.pincode}</p>
-                                           <p className="text-[9px] text-slate-400 truncate uppercase">{a.area}</p>
-                                        </div>
+                                          <p className={cn("font-bold text-xs", isSelected ? "text-rose-900" : "text-slate-900")}>{a.pincode}</p>
+                                          <p className="text-[9px] text-slate-400 truncate uppercase font-bold">{a.area}</p>
+                                          <div className="flex items-center space-x-2 mt-1">
+                                            <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-bold uppercase tracking-tighter">{a.taluka}</span>
+                                            <span className="text-[8px] bg-indigo-50 px-1.5 py-0.5 rounded text-indigo-500 font-bold uppercase tracking-tighter">{a.district_name}</span>
+                                          </div>
+                                       </div>
                                       </div>
                                       <div className="flex items-center space-x-3">
                                         <div className={cn(
@@ -390,9 +414,12 @@ export default function AdminEmployees() {
                                                 )}
                                               >
                                                 <div className="overflow-hidden">
-                                                   <p className="text-sm font-bold truncate">{p.pincode}</p>
-                                                   <p className="text-[9px] font-medium text-slate-400 truncate uppercase tracking-wider">{p.area}</p>
+                                                <p className="text-sm font-bold truncate">{p.pincode}</p>
+                                                <p className="text-[9px] font-medium text-slate-400 truncate uppercase mt-0.5 font-bold">{p.area}</p>
+                                                <div className="flex items-center space-x-2 mt-1">
+                                                  <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-bold uppercase tracking-tighter">{p.taluka}</span>
                                                 </div>
+                                             </div>
                                                 {!isAssigned && (
                                                   <div className={cn("w-5 h-5 rounded flex items-center justify-center border transition-all shadow-sm", isSelected ? "bg-indigo-600 border-indigo-600 text-white" : "border-slate-300")}>
                                                     {isSelected && <CheckSquare className="w-4 h-4" />}
