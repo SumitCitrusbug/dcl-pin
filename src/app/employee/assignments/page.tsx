@@ -326,7 +326,7 @@ export default function EmployeeAssignments() {
                                             )}
                                           >
                                             <div className="overflow-hidden">
-                                               <p className="text-sm font-bold truncate">{p.pincode}</p>
+                                               <p className="text-sm font-bold truncate text-slate-900">{p.pincode}</p>
                                                <p className="text-[9px] font-medium text-slate-400 truncate uppercase mt-0.5 font-bold">{p.area}</p>
                                                <div className="flex items-center space-x-2 mt-1">
                                                  <span className="text-[8px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500 font-bold uppercase tracking-tighter">{p.taluka}</span>
